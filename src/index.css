@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* 보이스 오더 디자인 시스템 — 따뜻한 카페 톤 */
+@theme {
+  --color-espresso: #2a2018;
+  --color-caramel: #c2683a;
+  --color-amber: #e0a458;
+  --color-teal: #2e7d6b;
+  --color-body: #4a4036;
+  --color-card: #f6f1eb;
+  --color-card-light: #fbf6f0;
+  --color-line: #e8decf;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family:
+    "Pretendard",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+  background: #ffffff;
+  color: var(--color-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 어르신용 큰 터치 버튼 기본 스타일 */
+.btn-primary {
+  @apply min-h-[72px] rounded-2xl px-8 text-2xl font-bold shadow-md transition-transform active:scale-[0.98];
+}
+
+.btn-secondary {
+  @apply min-h-[72px] rounded-2xl border-2 border-line px-6 text-xl font-semibold text-body transition-colors hover:bg-card;
+}
