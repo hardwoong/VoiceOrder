@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { History, Mic } from 'lucide-react';
+import { BRAND } from '../data/brand';
 import { PRESETS } from '../data/menu';
 import { CallStaffButton } from './CallStaffButton';
 
@@ -15,7 +16,7 @@ interface IdleScreenProps {
 }
 
 /**
- * 1) 대기 화면
+ * 1) 대기 화면 — 공차 × Voice Order
  * - Push-to-talk 큰 버튼
  * - 프리셋 문구 (음성 폴백)
  * - 지난번 재주문 / 직원 호출
@@ -40,19 +41,25 @@ export function IdleScreen({
 
   return (
     <div className="relative flex h-full flex-col px-6 py-8">
-      {/* 상단 유틸 버튼 */}
-      <div className="flex items-center justify-end gap-3">
-        {hasLastOrder && (
-          <button
-            type="button"
-            onClick={onReorder}
-            className="inline-flex min-h-[48px] items-center gap-2 rounded-xl border-2 border-amber/40 bg-amber/10 px-4 text-lg font-semibold text-espresso"
-          >
-            <History className="h-5 w-5" aria-hidden />
-            지난번 그 음료
-          </button>
-        )}
-        <CallStaffButton onClick={onCallStaff} />
+      {/* 상단: 브랜드 + 유틸 */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="rounded-xl bg-gongcha/10 px-4 py-2">
+          <p className="text-sm font-semibold text-gongcha">{BRAND.nameEn}</p>
+          <p className="text-lg font-bold text-espresso">{BRAND.name} × Voice Order</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {hasLastOrder && (
+            <button
+              type="button"
+              onClick={onReorder}
+              className="inline-flex min-h-[48px] items-center gap-2 rounded-xl border-2 border-amber/40 bg-amber/10 px-4 text-lg font-semibold text-espresso"
+            >
+              <History className="h-5 w-5" aria-hidden />
+              지난번 그 음료
+            </button>
+          )}
+          <CallStaffButton onClick={onCallStaff} />
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col items-center justify-center gap-10">
@@ -61,15 +68,17 @@ export function IdleScreen({
           animate={{ opacity: 1, y: 0 }}
           className="text-center"
         >
-          <h1 className="text-4xl font-bold text-espresso">보이스 오더</h1>
-          <p className="mt-3 text-2xl text-body">원하는 음료를 말씀해 주세요</p>
+          <p className="text-6xl" aria-hidden>
+            🧋
+          </p>
+          <h1 className="mt-2 text-4xl font-bold text-espresso">말하고 주문하기</h1>
+          <p className="mt-3 text-2xl text-body">{BRAND.tagline}</p>
         </motion.div>
 
-        {/* Push-to-talk — 음성 미지원 시에도 누르면 안내 */}
         <motion.button
           type="button"
           className={`flex min-h-[120px] min-w-[320px] flex-col items-center justify-center gap-3 rounded-3xl px-10 text-3xl font-bold text-white shadow-xl transition-transform active:scale-[0.97] ${
-            isListening ? 'bg-teal ring-4 ring-teal/30' : 'bg-caramel'
+            isListening ? 'bg-teal ring-4 ring-teal/30' : 'bg-gongcha'
           }`}
           onMouseDown={handleTalkDown}
           onMouseUp={handleTalkUp}
@@ -94,16 +103,17 @@ export function IdleScreen({
           </p>
         )}
 
-        {/* 프리셋 — 데모 안전장치 */}
         <div className="w-full max-w-2xl">
-          <p className="mb-4 text-center text-xl text-body/80">또는 이렇게 말씀해 보세요</p>
+          <p className="mb-4 text-center text-xl text-body/80">
+            {BRAND.name}에서 이렇게 말씀해 보세요
+          </p>
           <div className="grid grid-cols-2 gap-4">
             {PRESETS.map((preset) => (
               <button
                 key={preset}
                 type="button"
                 onClick={() => onPreset(preset)}
-                className="btn-secondary bg-card-light text-espresso hover:border-caramel/50"
+                className="btn-secondary bg-card-light text-espresso hover:border-gongcha/50"
               >
                 {preset}
               </button>
