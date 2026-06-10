@@ -17,6 +17,10 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 html,
 body,
 #root {
@@ -32,16 +36,42 @@ body {
     "Segoe UI",
     system-ui,
     sans-serif;
-  background: #ffffff;
+  background: var(--color-card);
   color: var(--color-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* 어르신용 큰 터치 버튼 기본 스타일 */
+/* 휴대폰 QR 주문 — 앱처럼 보이는 셸 (최대 430px) */
+.app-shell {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100dvh;
+  min-height: -webkit-fill-available;
+  margin: 0 auto;
+  background: #ffffff;
+  overflow-x: hidden;
+  box-shadow: 0 0 0 1px var(--color-line);
+}
+
+@media (min-width: 431px) {
+  .app-shell {
+    box-shadow: 0 12px 48px rgb(42 32 24 / 0.12);
+  }
+}
+
+.screen-shell {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* 어르신용 큰 터치 버튼 — 모바일에서도 최소 52px */
 .btn-primary {
-  @apply min-h-[72px] rounded-2xl px-8 text-2xl font-bold shadow-md transition-transform active:scale-[0.98];
+  @apply min-h-[52px] rounded-2xl px-4 text-lg font-bold shadow-md transition-transform active:scale-[0.98] sm:min-h-[72px] sm:px-8 sm:text-2xl;
 }
 
 .btn-secondary {
-  @apply min-h-[72px] rounded-2xl border-2 border-line px-6 text-xl font-semibold text-body transition-colors hover:bg-card;
+  @apply min-h-[52px] rounded-2xl border-2 border-line px-4 text-base font-semibold text-body transition-colors hover:bg-card sm:min-h-[72px] sm:px-6 sm:text-xl;
 }

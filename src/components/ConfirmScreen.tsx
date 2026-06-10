@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import type { MenuItem } from '../data/menu';
 import { CallStaffButton } from './CallStaffButton';
+import { ScreenShell } from './ScreenShell';
 
 interface ConfirmScreenProps {
   menu: MenuItem;
@@ -9,7 +10,7 @@ interface ConfirmScreenProps {
   onCallStaff: () => void;
 }
 
-/** 4) 확인 화면 — 선택 음료 크게 표시 후 주문 */
+/** 4) 확인 화면 */
 export function ConfirmScreen({
   menu,
   onConfirm,
@@ -17,41 +18,47 @@ export function ConfirmScreen({
   onCallStaff,
 }: ConfirmScreenProps) {
   return (
-    <div className="relative flex h-full flex-col px-6 py-8">
-      <div className="flex justify-end">
+    <ScreenShell className="gap-4">
+      <div className="flex shrink-0 justify-end">
         <CallStaffButton onClick={onCallStaff} />
       </div>
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 text-center">
+      <div className="flex flex-1 flex-col items-center justify-center gap-5 text-center sm:gap-8">
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
+          initial={{ scale: 0.95, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          className="w-full max-w-lg overflow-hidden rounded-3xl border-2 border-line bg-card-light shadow-xl"
+          className="w-full overflow-hidden rounded-2xl border-2 border-line bg-card-light shadow-xl sm:max-w-lg sm:rounded-3xl"
         >
-          <div className="flex h-48 items-center justify-center bg-card text-8xl">
+          <div className="flex h-32 items-center justify-center bg-card text-6xl sm:h-48 sm:text-8xl">
             {menu.thumb}
           </div>
-          <div className="p-8">
-            <h2 className="text-4xl font-bold text-espresso">{menu.name}</h2>
-            <p className="mt-4 text-2xl leading-relaxed text-body">{menu.desc}</p>
+          <div className="p-4 sm:p-8">
+            <h2 className="text-2xl font-bold text-espresso sm:text-4xl">{menu.name}</h2>
+            <p className="mt-2 text-base leading-relaxed text-body sm:mt-4 sm:text-2xl">
+              {menu.desc}
+            </p>
           </div>
         </motion.div>
 
-        <p className="text-3xl font-semibold text-espresso">이걸로 주문할까요?</p>
+        <p className="text-xl font-semibold text-espresso sm:text-3xl">이걸로 주문할까요?</p>
 
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex w-full max-w-sm flex-col gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
           <button
             type="button"
             onClick={onConfirm}
-            className="btn-primary min-w-[280px] bg-teal text-white"
+            className="btn-primary w-full bg-teal text-white sm:min-w-[240px] sm:w-auto"
           >
             주문할게요
           </button>
-          <button type="button" onClick={onBack} className="btn-secondary min-w-[200px]">
+          <button
+            type="button"
+            onClick={onBack}
+            className="btn-secondary w-full sm:min-w-[180px] sm:w-auto"
+          >
             다시 고를게요
           </button>
         </div>
       </div>
-    </div>
+    </ScreenShell>
   );
 }

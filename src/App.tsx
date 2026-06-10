@@ -78,15 +78,15 @@ function App() {
   const screenKey = state.screen;
 
   return (
-    <div className="mx-auto h-full min-h-screen max-w-6xl bg-white">
+    <div className="app-shell">
       <AnimatePresence mode="wait">
         <motion.div
           key={screenKey}
-          initial={{ opacity: 0, x: 20 }}
+          initial={{ opacity: 0, x: 12 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.25 }}
-          className="h-full min-h-screen"
+          exit={{ opacity: 0, x: -12 }}
+          transition={{ duration: 0.2 }}
+          className="min-h-dvh"
         >
           {state.screen === 'idle' && (
             <IdleScreen
